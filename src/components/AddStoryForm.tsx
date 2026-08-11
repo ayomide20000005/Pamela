@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StorySource } from "../types/story";
+import type { StorySource } from "../types/story";
 
 interface AddStoryFormProps {
   onAdd: (content: string, source: StorySource) => void;

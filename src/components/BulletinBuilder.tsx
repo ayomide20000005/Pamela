@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Story } from "../types/story";
+import type { Story } from "../types/story";
 
 interface BulletinBuilderProps {
   stories: Story[];

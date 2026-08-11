@@ -1,4 +1,4 @@
-import { StoryCategory, StoryQuality } from "../types/story";
+import type { StoryCategory, StoryQuality } from "../types/story";
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY as string;
 const GEMINI_URL =

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { findMoreNews, ExternalNewsResult } from "../lib/newsApi";
-import { NewStoryInput } from "../types/story";
+import { findMoreNews } from "../lib/newsApi";
+import type { ExternalNewsResult } from "../lib/newsApi";
+import type { NewStoryInput } from "../types/story";
 
 interface FindMoreNewsProps {
   onImport: (input: NewStoryInput) => void;

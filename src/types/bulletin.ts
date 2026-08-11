@@ -1,4 +1,4 @@
-import { Story } from "./story";
+import type { Story } from "./story";
 
 export interface BulletinStory {
   story_id: string;

@@ -1,4 +1,4 @@
-import { Story } from "../types/story";
+import type { Story } from "../types/story";
 
 interface StoryCardProps {
   story: Story;

@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "../lib/supabaseClient";
-import { Story, NewStoryInput, StoryCategory, StoryQuality } from "../types/story";
+import type { Story, NewStoryInput, StoryCategory, StoryQuality } from "../types/story";
 
 export function useStories() {
   const [stories, setStories] = useState<Story[]>([]);

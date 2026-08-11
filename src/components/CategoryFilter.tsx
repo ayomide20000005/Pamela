@@ -1,4 +1,4 @@
-import { StoryCategory } from "../types/story";
+import type { StoryCategory } from "../types/story";
 
 const CATEGORIES: (StoryCategory | "all")[] = [
   "all", "politics", "business", "sports", "entertainment",

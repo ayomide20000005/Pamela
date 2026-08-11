@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { UseAuthReturn } from "../hooks/useAuth";
+import type { useAuth } from "../hooks/useAuth";
 
 interface AuthGateProps {
-  auth: ReturnType<typeof import("../hooks/useAuth").useAuth>;
+  auth: ReturnType<typeof useAuth>;
   isDark: boolean;
   toggleTheme: () => void;
 }
@@ -10,7 +10,6 @@ interface AuthGateProps {
 export default function AuthGate({ auth, isDark, toggleTheme }: AuthGateProps) {
   const [name, setName] = useState("");
   const [passcode, setPasscode] = useState("");
-  const [confirmPasscode, setConfirmPasscode] = useState("");
   const [enteredPasscode, setEnteredPasscode] = useState("");
   const [localError, setLocalError] = useState<string | null>(null);
 
@@ -24,10 +23,6 @@ export default function AuthGate({ auth, isDark, toggleTheme }: AuthGateProps) {
     }
     if (passcode.length < 4) {
       setLocalError("Passcode must be at least 4 characters.");
-      return;
-    }
-    if (passcode !== confirmPasscode) {
-      setLocalError("Passcodes don't match.");
       return;
     }
 
@@ -59,11 +54,12 @@ export default function AuthGate({ auth, isDark, toggleTheme }: AuthGateProps) {
             <h1 className="text-lg font-semibold mb-1">Welcome to Pamela 🌷</h1>
             <p className="text-sm opacity-60 mb-4">Let's set things up, just this once.</p>
 
-            <form onSubmit={handleSetup} className="space-y-3">
+            <form onSubmit={handleSetup} className="space-y-3" autoComplete="off">
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your name"
+                autoComplete="off"
                 className="w-full text-sm px-3 py-2 rounded-lg border border-[var(--color-border)] bg-transparent outline-none focus:border-[var(--color-primary)]"
               />
               <input
@@ -71,13 +67,7 @@ export default function AuthGate({ auth, isDark, toggleTheme }: AuthGateProps) {
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
                 placeholder="Set a passcode"
-                className="w-full text-sm px-3 py-2 rounded-lg border border-[var(--color-border)] bg-transparent outline-none focus:border-[var(--color-primary)]"
-              />
-              <input
-                type="password"
-                value={confirmPasscode}
-                onChange={(e) => setConfirmPasscode(e.target.value)}
-                placeholder="Confirm passcode"
+                autoComplete="new-password"
                 className="w-full text-sm px-3 py-2 rounded-lg border border-[var(--color-border)] bg-transparent outline-none focus:border-[var(--color-primary)]"
               />
 
@@ -96,13 +86,14 @@ export default function AuthGate({ auth, isDark, toggleTheme }: AuthGateProps) {
             <h1 className="text-lg font-semibold mb-1">Welcome back 🌷</h1>
             <p className="text-sm opacity-60 mb-4">Enter your passcode to continue.</p>
 
-            <form onSubmit={handleUnlock} className="space-y-3">
+            <form onSubmit={handleUnlock} className="space-y-3" autoComplete="off">
               <input
                 type="password"
                 value={enteredPasscode}
                 onChange={(e) => setEnteredPasscode(e.target.value)}
                 placeholder="Passcode"
                 autoFocus
+                autoComplete="off"
                 className="w-full text-sm px-3 py-2 rounded-lg border border-[var(--color-border)] bg-transparent outline-none focus:border-[var(--color-primary)]"
               />
 

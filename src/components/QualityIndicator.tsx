@@ -1,4 +1,4 @@
-import { StoryQuality } from "../types/story";
+import type { StoryQuality } from "../types/story";
 
 interface QualityIndicatorProps {
   quality: StoryQuality;

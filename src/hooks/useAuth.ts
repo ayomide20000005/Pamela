@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "../lib/supabaseClient";
-import { Profile, SetupProfileInput } from "../types/profile";
+import type { Profile, SetupProfileInput } from "../types/profile";
 
 const SESSION_KEY = "pamela_unlocked";
 
