@@ -1,11 +1,29 @@
-import type { Story } from "../types/story";
+import type { Story, StoryCategory, StoryQuality } from "../types/story";
+import QualityIndicator from "./QualityIndicator";
+import DuplicateBadge from "./DuplicateBadge";
+
+const CATEGORIES: StoryCategory[] = [
+  "politics", "business", "sports", "entertainment",
+  "health", "technology", "world", "local", "uncategorized",
+];
 
 interface StoryCardProps {
   story: Story;
+  allStories: Story[];
   onDelete: (id: string) => void;
+  onCategoryChange: (id: string, category: StoryCategory) => void;
+  onQualityChange: (id: string, quality: StoryQuality) => void;
+  onMarkDuplicate: (id: string, duplicateOfId: string | null) => void;
 }
 
-export default function StoryCard({ story, onDelete }: StoryCardProps) {
+export default function StoryCard({
+  story,
+  allStories,
+  onDelete,
+  onCategoryChange,
+  onQualityChange,
+  onMarkDuplicate,
+}: StoryCardProps) {
   return (
     <div className="rounded-xl border p-4 mb-3 bg-[var(--color-surface)] border-[var(--color-border)] shadow-sm">
       <div className="flex justify-between items-start gap-3">
@@ -17,20 +35,33 @@ export default function StoryCard({ story, onDelete }: StoryCardProps) {
           Remove
         </button>
       </div>
-      <div className="flex gap-2 mt-3 text-xs">
-        <span className="px-2 py-1 rounded-full bg-[var(--color-primary)] text-white capitalize">
-          {story.category}
-        </span>
-        <span className="px-2 py-1 rounded-full border border-[var(--color-border)] capitalize">
-          {story.quality}
-        </span>
+
+      <div className="flex gap-2 mt-3 text-xs items-center">
+        <select
+          value={story.category}
+          onChange={(e) => onCategoryChange(story.id, e.target.value as StoryCategory)}
+          className="text-xs rounded-full border border-[var(--color-border)] bg-transparent px-2 py-1 capitalize"
+        >
+          {CATEGORIES.map((cat) => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
         <span className="px-2 py-1 rounded-full border border-[var(--color-border)] capitalize">
           {story.source}
         </span>
-        {story.is_duplicate && (
-          <span className="px-2 py-1 rounded-full bg-red-200 text-red-800">Duplicate</span>
-        )}
       </div>
+
+      <QualityIndicator
+        quality={story.quality}
+        notes={story.quality_notes}
+        onChange={(quality) => onQualityChange(story.id, quality)}
+      />
+
+      <DuplicateBadge
+        story={story}
+        allStories={allStories}
+        onMarkDuplicate={onMarkDuplicate}
+      />
     </div>
   );
 }
